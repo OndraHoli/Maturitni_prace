@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<style>
+</style>
+<head>
+<meta name = "viewport" content = "width = device-width, initial-scale = 1.0 maximum-scale = 2.5, user-scalable=1">
+<title>Maturitní práce</title>
+</head>
+<body>
+<center>
+
+<h1>Web server</h1>
+<br>
+<div class = "card">
+<h2>Cas: <span id = "timeValue"></span></h2>
+</div>
+
+<div class = "card">
+<h2>Teplota: <span id="tempValue">0</span></h2>
+</div>
+
+<div>
+<FORM action="/" method="post">
+Zadejte text pro zobrazeni na maticovem displeji:
+<br>
+<input type="text" name="textosend" id="textosend" value="text">
+<br>
+<input type="submit" value="odeslat">
+</form>
+</div>
+<br>
+
+<div>
+<FORM action="/" method="post">
+Pozice motorku:
+<br>
+<input type="text" name="textosendSpeed" id="textosendSpeed" value="90">
+<br>
+<input type="submit" value="odeslat">
+</form>
+</div>
+<br>
+
+<div>
+<FORM action = "/" method ="post">
+Namichejte barvu RGB LED:
+<br>
+R: 
+<input type = "text" name="ledRed" id = "ledRed" value = "0"><br>
+G: 
+<input type = "text" name = "ledGreen" id = "ledGreen" value = "0"><br>
+B: 
+<input type = "text" name = "ledBlue" id = "ledBlue" value = "0"><br>
+<input type = "submit" value = "odeslat">
+</form>
+</div>
+<br>
+
+<FORM action="/" method="post">
+<button type="submit" name="button1ON" id="button1ON" value="but1ON">Led 1 ON</button>
+</form>
+
+<FORM action="/" method="post">
+<button type="submit" name="button1OFF" id="button1OFF" value="but1OFF">Led 1 OFF</button>
+</form>
+
+
+</center>
+
+<script>
+  setInterval(function() {
+  
+  getData();
+}, 500); 
+
+function getData() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("tempValue").innerHTML =
+      this.responseText;
+    }
+  };
+  xhttp.open("GET", "readTemp", true);
+  xhttp.send();
+
+  var xhttpTime = new XMLHttpRequest();
+  xhttpTime.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("timeValue").innerHTML = 
+      this.responseText;
+    }
+  };
+  xhttpTime.open("GET", "getTime", true);
+  xhttpTime.send();
+}
+</script>
+
+</body>
+</html>
